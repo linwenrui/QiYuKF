@@ -10,7 +10,10 @@
 #import "QYSDK.h"
 #import "XHCustomTableViewCell.h"
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource, QYConversationManagerDelegate>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, QYConversationManagerDelegate> {
+
+    BOOL _isDefault; // 是否为默认的主题
+}
 
 @property (nonatomic, strong) IBOutlet UITableView *tableview;
 @property (nonatomic, strong) NSMutableArray<QYSessionInfo *> *dataSource;
@@ -22,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _isDefault = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableview.tableFooterView = [UIView new];
     
@@ -76,6 +80,48 @@
         
         NSLog(@"注销成功");
     }];
+}
+
+#pragma mark - 切换主题
+
+- (IBAction)onChangeSkin {
+
+    if (_isDefault) {
+        
+        _isDefault = NO;
+        [[QYSDK sharedSDK] customUIConfig].customMessageTextColor = [UIColor blackColor];
+        [[QYSDK sharedSDK] customUIConfig].customMessageHyperLinkColor = [UIColor blackColor];
+        [[QYSDK sharedSDK] customUIConfig].serviceMessageTextColor = [UIColor blackColor];
+        [[QYSDK sharedSDK] customUIConfig].serviceMessageHyperLinkColor = [UIColor blueColor];
+        
+        UIImage *backgroundImage = [[UIImage imageNamed:@"session_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeTile];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
+        imageView.contentMode = UIViewContentModeScaleToFill;
+        [[QYSDK sharedSDK] customUIConfig].sessionBackground = imageView;
+        
+        [[QYSDK sharedSDK] customUIConfig].customerHeadImage = [UIImage imageNamed:@"customer_head"];
+        [[QYSDK sharedSDK] customUIConfig].customerHeadImageUrl = @"http://www.274745.cc/imgall/obuwgnjonzuxa2ldfzrw63i/20100121/1396946_104643942888_2.jpg";
+        [[QYSDK sharedSDK] customUIConfig].serviceHeadImage = [UIImage imageNamed:@"service_head"];
+        [[QYSDK sharedSDK] customUIConfig].serviceHeadImageUrl = @"http://pic33.nipic.com/20130916/3420027_192919547000_2.jpg";
+        
+        [[QYSDK sharedSDK] customUIConfig].customerMessageBubbleNormalImage = [[UIImage imageNamed:@"icon_sender_node"]
+                                                                               resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,30,30)
+                                                                               resizingMode:UIImageResizingModeStretch];
+        [[QYSDK sharedSDK] customUIConfig].customerMessageBubblePressedImage = [[UIImage imageNamed:@"icon_sender_node"]
+                                                                                resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,30,30)
+                                                                                resizingMode:UIImageResizingModeStretch];
+        [[QYSDK sharedSDK] customUIConfig].serviceMessageBubbleNormalImage = [[UIImage imageNamed:@"icon_receiver_node"]
+                                                                              resizableImageWithCapInsets:UIEdgeInsetsMake(15,30,30,15)
+                                                                              resizingMode:UIImageResizingModeStretch];
+        [[QYSDK sharedSDK] customUIConfig].serviceMessageBubblePressedImage = [[UIImage imageNamed:@"icon_receiver_node"]
+                                                                               resizableImageWithCapInsets:UIEdgeInsetsMake(15,30,30,15)
+                                                                               resizingMode:UIImageResizingModeStretch];
+        [[QYSDK sharedSDK] customUIConfig].rightBarButtonItemColorBlackOrWhite = NO;
+    } else {
+    
+        _isDefault = true;
+        [[[QYSDK sharedSDK] customUIConfig] restoreToDefault];
+    }
 }
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource

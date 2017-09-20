@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -97,11 +98,18 @@
                                 <action selector="logout" destination="BYZ-38-t0r" id="x4w-7w-Ftj"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="七鱼客服" id="qa9-98-laB">
-                            <connections>
-                                <action selector="qiyukfClick" destination="BYZ-38-t0r" id="dVe-NW-oJj"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="七鱼客服" id="qa9-98-laB">
+                                <connections>
+                                    <action selector="qiyukfClick" destination="BYZ-38-t0r" id="dVe-NW-oJj"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="换主题" id="5nS-Bi-x7A">
+                                <connections>
+                                    <action selector="onChangeSkin" destination="BYZ-38-t0r" id="jji-0G-Fgs"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableview" destination="nOq-8s-rKv" id="JFd-Xt-0Mp"/>
