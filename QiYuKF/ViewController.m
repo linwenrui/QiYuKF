@@ -99,17 +99,17 @@
         imageView.contentMode = UIViewContentModeScaleToFill;
         [[QYSDK sharedSDK] customUIConfig].sessionBackground = imageView;
         
-        [[QYSDK sharedSDK] customUIConfig].customerHeadImage = [UIImage imageNamed:@"customer_head"];
-        [[QYSDK sharedSDK] customUIConfig].customerHeadImageUrl = @"http://www.274745.cc/imgall/obuwgnjonzuxa2ldfzrw63i/20100121/1396946_104643942888_2.jpg";
+//        [[QYSDK sharedSDK] customUIConfig].customerHeadImage = [UIImage imageNamed:@"customer_head"];
+        [[QYSDK sharedSDK] customUIConfig].customerHeadImageUrl = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505976221073&di=9c6a59ae86e94aa7301c629457586d2d&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F17%2F50%2F22%2F17i58PICydQ_1024.jpg";
         [[QYSDK sharedSDK] customUIConfig].serviceHeadImage = [UIImage imageNamed:@"service_head"];
         [[QYSDK sharedSDK] customUIConfig].serviceHeadImageUrl = @"http://pic33.nipic.com/20130916/3420027_192919547000_2.jpg";
         
-        [[QYSDK sharedSDK] customUIConfig].customerMessageBubbleNormalImage = [[UIImage imageNamed:@"icon_sender_node"]
-                                                                               resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,30,30)
-                                                                               resizingMode:UIImageResizingModeStretch];
-        [[QYSDK sharedSDK] customUIConfig].customerMessageBubblePressedImage = [[UIImage imageNamed:@"icon_sender_node"]
-                                                                                resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,30,30)
-                                                                                resizingMode:UIImageResizingModeStretch];
+//        [[QYSDK sharedSDK] customUIConfig].customerMessageBubbleNormalImage = [[UIImage imageNamed:@"icon_sender_node"]
+//                                                                               resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,30,30)
+//                                                                               resizingMode:UIImageResizingModeStretch];
+//        [[QYSDK sharedSDK] customUIConfig].customerMessageBubblePressedImage = [[UIImage imageNamed:@"icon_sender_node"]
+//                                                                                resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,30,30)
+//                                                                                resizingMode:UIImageResizingModeStretch];
         [[QYSDK sharedSDK] customUIConfig].serviceMessageBubbleNormalImage = [[UIImage imageNamed:@"icon_receiver_node"]
                                                                               resizableImageWithCapInsets:UIEdgeInsetsMake(15,30,30,15)
                                                                               resizingMode:UIImageResizingModeStretch];
@@ -141,6 +141,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    /**
     // 携带商品信息
     QYCommodityInfo *commodityInfo = [[QYCommodityInfo alloc] init];
     commodityInfo.title = @"网易七鱼";
@@ -149,6 +150,7 @@
     commodityInfo.urlString = @"http://qiyukf.com/";
     commodityInfo.note = @"￥10000";
     commodityInfo.show = YES; //访客端是否要在消息中显示商品信息，YES代表显示,NO代表不显示
+     */
     
     QYSource *source = [[QYSource alloc] init];
     source.title = @"七鱼客服";
@@ -157,7 +159,20 @@
     sessionViewController.sessionTitle = @"七鱼客服";
     sessionViewController.source = source;
     sessionViewController.hidesBottomBarWhenPushed = YES;
-    sessionViewController.commodityInfo = commodityInfo;
+//    sessionViewController.commodityInfo = commodityInfo;
+    
+    // 添加用户信息
+    QYUserInfo *userInfo = [[QYUserInfo alloc] init];
+    userInfo.userId = @"123456";
+    userInfo.data = @"[{\"key\":\"real_name\", \"value\":\"锐哥\"},"
+    "{\"key\":\"mobile_phone\", \"value\":\"18501992184\"},"
+    "{\"key\":\"email\", \"value\":\"13800000000@163.com\"},"
+    "{\"index\":0, \"key\":\"account\", \"label\":\"账号\", \"value\":\"zhangsan\", \"href\":\"http://www.baidu.com\"},"
+    "{\"index\":1, \"key\":\"sex\", \"label\":\"性别\", \"value\":\"先生\"},"
+    "{\"index\":5, \"key\":\"reg_date\", \"label\":\"注册日期\", \"value\":\"2015-11-16\"},"
+    "{\"index\":6, \"key\":\"last_login\", \"label\":\"上次登录时间\", \"value\":\"2015-12-22 15:38:54\"}]";
+    
+    [[QYSDK sharedSDK] setUserInfo:userInfo];
     [self.navigationController pushViewController:sessionViewController animated:YES];
 }
 
