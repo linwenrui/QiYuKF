@@ -55,4 +55,9 @@
     [barItem setTitleTextAttributes:textAttDic forState:UIControlStateNormal];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+
+    return UIStatusBarStyleLightContent;
+}
+
 @end
